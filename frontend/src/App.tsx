@@ -4,9 +4,11 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useState } from 'react';
 
 function App() {
-  const texts = localStorage.getItem("data").split("|")
-  const [text, setText] = useState(texts)
-  const [seperatedText, setSeperatedText] = useState<string[]>(texts || [])
+  const localtText = !localStorage.getItem("data") ? "" : localStorage.getItem("data")
+
+  const texts = !localStorage.getItem("data") ? [] : localStorage.getItem("data").split("|") 
+  const [text, setText] = useState(localtText)
+  const [seperatedText, setSeperatedText] = useState<string[]>(texts)
 
   const handleChange = (evt) => {
     const finalText: string = evt.target.value
