@@ -2,20 +2,19 @@ version: '3.3'
 services:
   dsp:
     restart: always
-    container_name: "template-dsp"
+    container_name: "marquee-dsp"
     build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "5173:5173"
-
-  server:
-    restart: always
-    container_name: "template-server"
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    environment:
-      - PORT=8080
+      - "30678:30678"
+  # server:
+  #   restart: always
+  #   container_name: "marquee-server"
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8099:8099"
+  #   environment:
+  #     - PORT=8099

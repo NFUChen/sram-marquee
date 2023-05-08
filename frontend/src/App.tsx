@@ -1,33 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { CustomMarquee } from './component/CustomMarquee'
+import { useLocalStorage } from "./hooks/useLocalStorage";
+import { useState } from 'react';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const texts = localStorage.getItem("data").split("|")
+  const [text, setText] = useState(texts)
+  const [seperatedText, setSeperatedText] = useState<string[]>(texts || [])
 
+  const handleChange = (evt) => {
+    const finalText: string = evt.target.value
+    localStorage.setItem("data", finalText);
+    const textArray = finalText.split("|").filter(
+      (string) => string != ""
+    )
+    if (textArray.length < 7) {
+      setText(finalText)
+      setSeperatedText(textArray)
+      return
+    }
+  }
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='app'>
+        {seperatedText.map(
+          (text: string, idx: number) => {
+            return (
+              <CustomMarquee key={idx} speed={50}>
+                <p>{text}</p>
+              </CustomMarquee>
+            )
+          }
+        )}
+
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <input type={"text"} onChange={handleChange} value={text} />
     </>
   )
 }
