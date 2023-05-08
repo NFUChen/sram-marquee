@@ -11,3 +11,9 @@
   min-height: 90vh;
   max-height: 90vh;
 }
+
+
+#text-input {
+    padding: 1rem;
+    width: 40vw;
+}

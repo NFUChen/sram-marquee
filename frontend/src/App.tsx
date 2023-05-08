@@ -34,7 +34,7 @@ function App() {
         )}
 
       </div>
-      <input type={"text"} onChange={handleChange} value={text} />
+      <input id="text-input" type={"text"} onChange={handleChange} value={text} />
     </>
   )
 }
